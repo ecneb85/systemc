@@ -1,0 +1,26 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "cmake",
+			"label": "CMake: build",
+			"command": "build",
+			"targets": [
+				"tlm_at_four_phase"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"problemMatcher": []
+		},
+		{
+			"type": "shell",
+			"label": "SystemC: simulate",
+			"command": "${command:cmake.launchTargetPath}",
+			"dependsOn": "CMake: build",
+			"dependsOrder": "sequence",
+			"problemMatcher": []
+		}
+	]
+}
