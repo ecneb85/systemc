@@ -8,7 +8,8 @@ CPU initiator writes one byte to a memory target and reads it back using the
 non-blocking four-phase protocol.
 
 GitHub Actions builds and runs the simulation with both GCC and Clang on
-Ubuntu. See [`.github/workflows/ci.yml`](.github/workflows/ci.yml).
+Ubuntu, and checks the four-phase order and expected timestamps for both
+transactions. See [`.github/workflows/ci.yml`](.github/workflows/ci.yml).
 
 ## Features
 
