@@ -1,9 +1,14 @@
 # SystemC TLM-2.0: AT four-phase protocol
 
+[![CI](https://github.com/ecneb85/systemc/actions/workflows/ci.yml/badge.svg)](https://github.com/ecneb85/systemc/actions/workflows/ci.yml)
+
 A small, runnable learning project for understanding the SystemC TLM-2.0
 architecture, with emphasis on the approximately timed (AT) coding style. A
 CPU initiator writes one byte to a memory target and reads it back using the
 non-blocking four-phase protocol.
+
+GitHub Actions builds and runs the simulation with both GCC and Clang on
+Ubuntu. See [`.github/workflows/ci.yml`](.github/workflows/ci.yml).
 
 ## Features
 
@@ -19,7 +24,8 @@ non-blocking four-phase protocol.
 ### Requirements
 
 - CMake 3.16 or newer
-- A C++20 compiler: GCC or Clang
+- A C++17 compiler: GCC or Clang (C++20 is selected automatically for the
+  MSYS2 UCRT64 SystemC package)
 - An installed SystemC library with TLM-2.0 headers
 
 Clone the repository, configure it, build, and run:
@@ -163,10 +169,11 @@ cmake --build build
 .\build\tlm_at_four_phase.exe
 ```
 
-SystemC 3.0.2 in this package was built with C++20; this project therefore uses
-C++20. CMake needs `C:\msys64\ucrt64\bin` on `PATH` to find `gendef` and
-`dlltool`; keep it on `PATH` when launching the executable so Windows can also
-locate the SystemC DLL.
+SystemC 3.0.2 in this package was built with C++20, so CMake selects C++20 for
+this configuration. Other installations use C++17 by default, matching the
+Ubuntu SystemC package used by CI. CMake needs `C:\msys64\ucrt64\bin` on `PATH`
+to find `gendef` and `dlltool`; keep it on `PATH` when launching the executable
+so Windows can also locate the SystemC DLL.
 
 ## Other SystemC installations
 
