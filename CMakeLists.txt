@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.16)
 
 project(systemc_tlm_at_learning LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
@@ -22,6 +22,7 @@ if(SYSTEMC_INCLUDE_DIR AND SYSTEMC_LIBRARY)
     target_include_directories(tlm_at_four_phase PRIVATE ${SYSTEMC_INCLUDE_DIR})
     target_link_libraries(tlm_at_four_phase PRIVATE ${SYSTEMC_LIBRARY})
     if(WIN32 AND SYSTEMC_LIBRARY MATCHES "\\.dll\\.a$")
+        set_property(TARGET tlm_at_four_phase PROPERTY CXX_STANDARD 20)
         target_compile_definitions(tlm_at_four_phase PRIVATE TLM_AT_SYSTEMC_DLL)
     endif()
 elseif(WIN32 AND MINGW AND EXISTS "${_systemc_include_dir}/systemc"
@@ -71,6 +72,7 @@ elseif(WIN32 AND MINGW AND EXISTS "${_systemc_include_dir}/systemc"
 
     target_include_directories(tlm_at_four_phase PRIVATE "${_systemc_include_dir}")
     target_link_libraries(tlm_at_four_phase PRIVATE "${_systemc_import_library}")
+    set_property(TARGET tlm_at_four_phase PROPERTY CXX_STANDARD 20)
     target_compile_definitions(tlm_at_four_phase PRIVATE TLM_AT_SYSTEMC_DLL)
 else()
     find_package(SystemCLanguage CONFIG QUIET)
