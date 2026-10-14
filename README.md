@@ -11,6 +11,26 @@ GitHub Actions builds and runs the simulation with both GCC and Clang on
 Ubuntu, and checks the four-phase order and expected timestamps for both
 transactions. See [`.github/workflows/ci.yml`](.github/workflows/ci.yml).
 
+## Problem to solve
+
+Implement a CPU-to-memory transaction in SystemC using the TLM-2.0
+approximately timed (AT) non-blocking transport protocol.
+
+The CPU must write the byte `0x2A` to address `0x10` in a 256-byte memory, then
+read that address and verify the value. Start the first request at 1 ns. Model
+the memory with a 5 ns request latency and a 10 ns response latency; the CPU
+ends each response 2 ns after receiving it. Use the `BEGIN_REQ`, `END_REQ`,
+`BEGIN_RESP`, and `END_RESP` phases, and keep each transaction's payload and
+data alive until the target completes it.
+
+The simulation is successful when the read returns `0x2A` and both transactions
+follow the expected phase schedule:
+
+```text
+Write: 1 ns BEGIN_REQ, 6 ns END_REQ, 16 ns BEGIN_RESP, 18 ns END_RESP
+Read:  18 ns BEGIN_REQ, 23 ns END_REQ, 33 ns BEGIN_RESP, 35 ns END_RESP
+```
+
 ## Features
 
 - TLM-2.0 initiator and target sockets
